@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Application de suivi des devoirs pour élèves, parents et enseignants."/>
+  <title>Suivi des devoirs</title>
+
+  <!-- Le navigateur trouvera style.css car il est dans le même dossier public -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Polices Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome pour les icônes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Bibliothèque Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><i class="fa-solid fa-graduation-cap"></i><span id="appTitle"></span></div>
+    <div class="actions">
+      <button id="langToggle" class="chip"><i class="fa-solid fa-language"></i> FR / AR</button>
+      <button id="teacherModeBtn" class="chip"><i class="fa-solid fa-user-tie"></i><span data-i18n="teacherMode"></span></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2 class="panel-title"><i class="fa-solid fa-filter"></i><span data-i18n="filters"></span></h2>
+      <form id="filterForm" class="filter-grid">
+        <div class="field"><label for="classSelect" data-i18n="class"></label><select id="classSelect"></select></div>
+        <div class="field"><label for="studentSelect" data-i18n="student"></label><select id="studentSelect"></select></div>
+        <div class="field"><label for="weekAnchor" data-i18n="weekOf"></label><input type="date" id="weekAnchor" /><small data-i18n="weekHint"></small></div>
+        <div class="field"><label data-i18n="uploadExcel"></label><input type="file" id="excelInput" accept=".xlsx,.xls" /></div>
+        <div class="field"><label data-i18n="downloadJson"></label><div class="button-group">
+            <button type="button" id="exportBtn" class="btn"><i class="fa-solid fa-file-export"></i><span data-i18n="export"></span></button>
+            <button type="button" id="importBtn" class="btn ghost"><i class="fa-solid fa-file-import"></i><span data-i18n="import"></span></button>
+            <input type="file" id="importJsonInput" accept="application/json" hidden /></div>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title"><i class="fa-solid fa-book-open"></i><span data-i18n="homework"></span></h2>
+        <div class="progress-wrap">
+          <span class="progress-label" data-i18n="weeklyProgress"></span>
+          <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          <div id="progressPct" class="progress-pct">0%</div>
+        </div>
+      </div>
+      <div id="daysGrid" class="days-grid"></div>
+    </section>
+
+    <section id="teacherPanel" class="panel hidden">
+      <h2 class="panel-title"><i class="fa-solid fa-chalkboard-user"></i><span data-i18n="teacherTools"></span></h2>
+      <div class="legend">
+        <div><span class="dot green"></span><span data-i18n="done"></span></div>
+        <div><span class="dot orange"></span><span data-i18n="partial"></span></div>
+        <div><span class="dot red"></span><span data-i18n="notdone"></span></div>
+      </div>
+      <p class="muted" data-i18n="teacherNote"></p>
+    </section>
+  </main>
+  <footer class="foot"><span>© 2025</span></footer>
+
+  <!-- Le script est appelé à la fin. Le navigateur le trouvera car il est dans le même dossier public -->
+  <script src="index.js"></script>
+</body>
+</html>
